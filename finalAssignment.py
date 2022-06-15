@@ -4,19 +4,29 @@ import pprint
 from textwrap import indent
 # filename
 filename = "emp.json"
-emp_dic =[{
+try:
+ emp_dic =[{
       "name" : input("Enter employee name : "),
-      "employee_id":"A2022-1",
+      "employee_id": "A2022-1",
       "city" : input ("Enter city : "),
       "experience" :int(input("Enter experience :")),
       "ctc" : int(input("Enter CTC : ")),
       "age" : int(input("Enter age : ")),
       "contact" : int(input("Enter contact : ")) 
       }]
-dic = json.dumps(emp_dic , indent=4)
-with open (filename,"w") as file:
+ 
+ dic = json.dumps(emp_dic , indent=4)
+ with open (filename,"w") as file:
      file.write(dic)
      print(dic)
+except ValueError:
+  print("Invalid input") 
+except TypeError:
+  print("Invalid input")
+except IndexError:
+  print("Invalid input")
+except NameError:
+  print("Invalid input")
 
 # Choices function for user to select add,update,delete
 def Choices():
@@ -24,10 +34,9 @@ def Choices():
     print("a - add the new employee detail")
     print("u - update the employee detail")
     print("d - delete the employee detail")
-    
-
+   
 while True:
-
+ try:
     # open the json file and store the datas in data variable
     with open(filename, "r") as file:
         data = json.load(file)
@@ -44,9 +53,9 @@ while True:
         emp_id = id[-1] + 1
         id.append("A2022" + "-" +str(emp_id))
         #exception handle
-        try:
+        #try:
         # getting all the input data from the user for new employee to add in json file
-         emp_dic = {"name": input("enter your name : "),
+        emp_dic = {"name": input("enter your name : "),
                      "employee_id": id[-1],
                      "city": input("enter the city : "),
                      "experience": int(input("enter the experience : ")),
@@ -54,12 +63,6 @@ while True:
                      "age": int(input("enter the age : ")),
                      "contact_no": int(input("enter the contact number : "))
                      }
-        except ValueError:
-         print("Invalid input") 
-        except TypeError:
-         print("Invalid input")
-        except IndexError:
-         print("Invalid input")
         
         # open the file and read the data and store in data variable
         with open(filename, "r") as file:
@@ -92,7 +95,7 @@ while True:
                 # checking user given employee id is in the dataset already
                 if Enter_id == emp['employee_id']:
                     #asking for key which you want to change
-                   change= input("enter what you want to change : ")
+                   change= input("Enter what you want to change : ")
                    
                    if change == "name":
                      data[index]["name"] = input("enter your name : ")
@@ -123,7 +126,7 @@ while True:
         # open the file and read the data and store it in data variable
         with open(filename, "r+") as file:
             data = json.load(file)
-            print(data)
+            pprint.pprint(data)
 
         # asking the employee id which user need to delete
         Enter_id = input("Enter employee_id you want to delete: ")
@@ -144,6 +147,11 @@ while True:
                     break
         else:
             print("emp_id is not found.")
-
     else :
-        print("Invalid Input")
+      print("Invalid Input")
+ except ValueError:
+  print("Invalid input") 
+ except TypeError:
+  print("Invalid input")
+ except IndexError:
+  print("Invalid input")
